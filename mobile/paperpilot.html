@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="light dark"><title>PaperPilot</title>
+<style>
+:root{color-scheme:light dark;--bg:#F7F4EE;--panel:#fff;--ink:#20354B;--muted:#596775;--line:#d5d3ca;--copper:#A65C36;--sage:#E5EEE8;--primary:#20354B;--on:#fff;--danger:#9a3c27}
+:root[data-theme=dark]{color-scheme:dark;--bg:#14212E;--panel:#1D3042;--ink:#F4EFE6;--muted:#BBC5CD;--line:#40515C;--copper:#DCA57A;--sage:#263E38;--primary:#274A65;--on:#F4EFE6;--danger:#f3a28c}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#14212E;--panel:#1D3042;--ink:#F4EFE6;--muted:#BBC5CD;--line:#40515C;--copper:#DCA57A;--sage:#263E38;--primary:#274A65;--on:#F4EFE6;--danger:#f3a28c}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,sans-serif}button,input,textarea,select{font:inherit}button,a,input,textarea,select{-webkit-tap-highlight-color:transparent}button{min-height:44px;min-width:44px;padding:10px 14px;color:var(--ink);border:1px solid var(--line);background:transparent;border-radius:5px;cursor:pointer}button:active{opacity:.75;transform:scale(.99)}button:disabled{opacity:.45;cursor:default}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--copper);outline-offset:3px}a{color:var(--ink);text-underline-offset:4px}.primary{background:var(--primary);color:var(--on);border-color:var(--primary)}.auth-primary{background:var(--copper);color:var(--bg);border-color:var(--copper)}.wide{width:100%}.text-btn{border:0;text-decoration:underline;text-underline-offset:4px;padding:10px 2px}.icon{border:0;display:grid;place-items:center;padding:10px}.icon svg,svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}.mark{color:var(--copper);width:30px;height:30px}
+.app{max-width:640px;margin:auto;height:100dvh;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top)}header{display:flex;align-items:center;margin:0 20px;gap:9px;padding:14px 0 12px;border-bottom:1px solid var(--copper);flex-shrink:0}.brand{display:flex;align-items:center;gap:8px}.wordmark{font:600 25px Georgia,serif;letter-spacing:-.6px}.spacer{flex:1}#back{display:none}#view{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding:20px}.hidden{display:none!important}h1,h2,h3{font-family:Georgia,'Times New Roman',serif;line-height:1.2;letter-spacing:-.5px}h1{font-size:29px;font-weight:600;margin:0 0 12px}h2{font-size:24px;margin:0 0 12px}h3{font-size:20px;margin:0 0 8px}p{margin:0 0 14px}.muted{color:var(--muted)}.small{font-size:12px}.auth{max-width:370px;margin:6dvh auto 0;min-height:65dvh;display:flex;flex-direction:column;justify-content:center}.auth h1,.auth>p{text-align:center}.auth .form{margin:30px 0 16px}.auth label{font-size:13px;font-weight:600}.auth-footer{text-align:center;margin-top:32px}.auth-note{text-align:center;font-size:12px;color:var(--muted);margin-top:10px}input,textarea,select{width:100%;font-size:16px;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:5px;padding:12px;min-height:46px}input{margin:6px 0 14px}textarea{resize:vertical;min-height:90px}label{display:block}.mail-icon{display:block;margin:0 auto 24px;width:44px;height:44px;color:var(--copper)}.auth-actions{margin-top:24px;display:grid;gap:8px;text-align:center}.email-address{font-weight:600;overflow-wrap:anywhere}.error{color:var(--danger);font-size:13px;line-height:1.5;margin:10px 0}.notice{background:var(--sage);border-left:3px solid var(--copper);padding:12px;font-size:13px;margin:14px 0}.empty{min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:26px 10px}.empty svg{width:42px;height:42px;color:var(--copper);margin-bottom:18px}.empty p{max-width:300px;color:var(--muted);font-size:14px}.empty button{margin-top:8px}.paper-strip{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:5px;padding:11px;margin-bottom:10px}.paper-strip svg{color:var(--copper)}.paper-strip .title{font:600 15px/1.3 Georgia,serif;overflow-wrap:anywhere}.paper-strip .meta{font-size:11px;color:var(--muted);margin-top:3px}.state{font-size:11px;color:var(--copper);margin-left:auto;white-space:nowrap}.subtabs{display:flex;gap:22px;border-bottom:1px solid var(--line);margin-bottom:16px}.subtabs button,.filters button{border:0;border-radius:0;padding:9px 2px;font-size:13px;min-width:50px}.subtabs .selected,.filters .selected{border-bottom:2px solid var(--copper);font-weight:600}.question-head{position:relative;padding-left:34px;margin:20px 0 14px}.number{position:absolute;left:0;top:1px;font:17px Georgia,serif;color:var(--copper)}.eyebrow{font-size:10px;letter-spacing:1.2px;font-weight:700;color:var(--muted);margin:18px 0 7px}.answer-body{font:18px/1.5 Georgia,serif;white-space:pre-wrap;overflow-wrap:anywhere}.answer{padding-bottom:22px;border-bottom:1px solid var(--line);margin-bottom:18px}.citations{display:flex;flex-wrap:wrap;gap:7px;margin:15px 0}.citations button{font-size:12px;padding:7px 10px;min-height:44px;background:var(--panel);min-width:0}.excerpt{background:var(--sage);border-left:3px solid var(--copper);padding:14px;margin:14px 0;border-radius:5px}.excerpt blockquote{font:italic 17px/1.5 Georgia,serif;margin:10px 0;white-space:pre-wrap;overflow-wrap:anywhere}.excerpt .text-btn{font-size:13px}.toolbar{display:flex;gap:8px;align-items:center;margin:10px 0}.toolbar button{font-size:12px}.annotation{font-size:13px;min-height:75px}.annotation-wrap{margin-top:12px}.annotation-wrap label{font-size:12px;margin-bottom:5px}.composer-wrap{border-top:1px solid var(--line);padding:10px 16px 8px;flex-shrink:0}.composer{display:flex;align-items:flex-end;gap:8px;border:1px solid var(--line);background:var(--panel);border-radius:7px;padding:7px}.composer textarea{border:0;background:transparent;resize:none;min-height:44px;max-height:120px;padding:10px 4px;font:16px/1.4 Georgia,serif}.composer button{flex-shrink:0}.composer .icon{min-width:36px;padding:9px 4px}.composer-caption{text-align:center;font-size:10px;color:var(--muted);margin:5px 0 0}#nav{display:flex;justify-content:space-around;border-top:1px solid var(--line);padding:6px 12px calc(7px + env(safe-area-inset-bottom));flex-shrink:0}#nav button{display:flex;align-items:center;flex-direction:column;gap:3px;min-width:78px;border:0;border-radius:0;padding:4px 12px;font-size:11px}#nav button.active{border-bottom:2px solid var(--copper);font-weight:600}#nav svg{width:21px;height:21px}.page-heading{display:flex;gap:12px;align-items:center;margin-bottom:14px}.page-heading h1{margin:0;flex:1}.filters{display:flex;gap:18px;border-bottom:1px solid var(--line);margin:8px 0 5px}.paper-row{width:100%;border:0;border-bottom:1px solid var(--line);border-radius:0;display:flex;gap:12px;align-items:center;padding:17px 0;text-align:left}.paper-row svg{color:var(--copper);flex-shrink:0}.paper-row strong{display:block;font:600 17px/1.3 Georgia,serif;overflow-wrap:anywhere}.paper-row small{color:var(--muted);display:block;margin-top:4px;font-size:12px}.saved-item{border:1px solid var(--line);border-radius:5px;padding:15px;margin:16px 0}.saved-item .paper-name{font-size:12px;color:var(--muted);margin-bottom:12px}.saved-item .snippet{font:16px/1.5 Georgia,serif}.saved-item .note{font:italic 15px Georgia,serif;margin:10px 0}.upload-box{border:1px dashed var(--line);border-radius:5px;padding:26px 15px;text-align:center;margin:22px 0}.upload-box svg{width:42px;height:42px;color:var(--copper);display:block;margin:0 auto 20px}.upload-box .small{margin-top:12px;color:var(--muted)}.step{padding:12px;background:var(--sage);margin:8px 0;border-radius:4px;font-size:14px}.step.current{border-left:3px solid var(--copper)}.process-title{margin-top:24px}.settings{margin:26px 0}.setting{width:100%;display:flex;align-items:center;gap:10px;text-align:left;border-radius:0;border:0;border-bottom:1px solid var(--line);padding:15px 0}.setting span:last-child{margin-left:auto;color:var(--muted);font-size:12px}.profile{text-align:center;margin:28px 0}.avatar{width:54px;height:54px;margin:0 auto 12px;border-radius:50%;background:var(--sage);display:grid;place-items:center}.archive{border-top:1px solid var(--line);margin:20px 0;padding-top:15px}.archive summary{font-size:13px}.archive p{font-size:13px;white-space:pre-wrap}.toast{position:fixed;left:16px;right:16px;top:calc(75px + env(safe-area-inset-top));z-index:20;max-width:600px;margin:auto;background:var(--ink);color:var(--bg);border-radius:6px;padding:12px 15px;font-size:13px;line-height:1.5;box-shadow:0 4px 20px #0001}.toast:empty{display:none}.pdf-open{display:block;margin:10px 0;padding:12px;border:1px solid var(--line);border-radius:5px;text-align:center}.inline-status{font-size:12px;color:var(--muted);min-height:18px}#offline{padding:5px 20px;background:var(--sage);font-size:11px;text-align:center}.sr-only{position:absolute;clip:rect(0,0,0,0);width:1px;height:1px;overflow:hidden}@media(prefers-reduced-motion:reduce){*{transform:none!important}}@media(max-width:360px){.wordmark{font-size:23px}#view{padding:16px}.auth{margin-top:3dvh}h1{font-size:27px}}
+#question-feedback:empty{display:none}</style></head><body>
+<div class="app" id="app"><header><button id="back" class="icon" aria-label="Go back">←</button><div class="brand"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M3 27 29 3 22 27 14 19 3 27 9 10 29 3M9 10l13 17M14 19 29 3"/></svg><span class="wordmark">PaperPilot</span></div><span class="spacer"></span><button id="profile" class="icon hidden" aria-label="Open account"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 22v-3a8 8 0 0 1 16 0v3"/></svg></button></header>
+<div id="offline" class="hidden">Offline · Your saved research is available</div><main id="view" tabindex="-1"></main><div id="composer-area" class="composer-wrap hidden"><div class="composer"><button id="attach" class="icon" aria-label="Upload a PDF"><svg viewBox="0 0 24 24"><path d="m8 13 7-7a3 3 0 0 1 4 4l-9 9a5 5 0 0 1-7-7l10-10"/></svg></button><textarea id="question" rows="1" maxlength="4000" aria-label="Question about this paper" placeholder="Ask a follow-up about this paper"></textarea><button id="ask" class="primary">Ask</button></div><p class="composer-caption">Answers grounded in your selected paper. Check the original source.</p></div>
+<nav id="nav" class="hidden" aria-label="Main navigation"><button data-nav="discuss"><svg viewBox="0 0 24 24"><path d="M21 11a9 8 0 0 1-9 8H5l-4 3 2-7a8 8 0 0 1 9-12 9 8 0 0 1 9 8z"/></svg>Discuss</button><button data-nav="library"><svg viewBox="0 0 24 24"><path d="M3 3h4v18H3zM10 3h4v18h-4zM17 4l4-1 3 17-4 1z"/></svg>Library</button><button data-nav="saved"><svg viewBox="0 0 24 24"><path d="M6 3h12v19l-6-4-6 4z"/></svg>Saved</button></nav></div>
+<input id="pdf" type="file" accept=".pdf,application/pdf" hidden><div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script>
+(()=>{
+'use strict';
+let sampleMode=new URLSearchParams(location.search).get('sample')==='1'&&!new URLSearchParams(location.search).has('code')&&!location.hash.includes('access_token');
+const API='https://ages-chan-gathered-donations.trycloudflare.com', KEY='paperpilot.v4', SESSION='paperpilot.session', LOGIN='paperpilot.loginRequest', CALLBACK='paperpilot.callback';
+const $=id=>document.getElementById(id),view=$('view');
+const icons={file:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h10l4 4v14H5zM14 3v5h5M8 12h8M8 16h5"/></svg>',mail:'<svg class="mail-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="1"/><path d="m2 5 10 8L22 5"/></svg>'};
+let state={version:4,preview:[],accounts:{}},session=null,page='signin',active=null,mode='discuss',sourceAnswer=null,busy=false,refreshing=null,syncing=false,toastTimer,blocked=false,chosen=null,filter='all',query='',lastEmail='',lastRegister=false,resendAt=0,pdfUrl=null,authEpoch=0;
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function read(key,storage=localStorage){try{return JSON.parse(storage.getItem(key)||'null');}catch(e){return null;}}
+function toast(t){$('toast').textContent=t;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').textContent='',8500);}
+function save(){if(blocked){toast('Saved data needs recovery. Your original records have not been changed.');return false;}try{localStorage.setItem(KEY,JSON.stringify(state));return true;}catch(e){toast('Could not save on this phone. Free storage before closing the app.');return false;}}
+try{
+ if(!sampleMode){
+ const raw=localStorage.getItem(KEY)||localStorage.getItem('paperpilot.v3')||localStorage.getItem('paperpilot.v2');
+ if(raw){const old=JSON.parse(raw);if(![2,3,4].includes(old.version)||!old.accounts||!Array.isArray(old.preview))throw Error('Invalid record');state=old;state.version=4;for(const a of Object.values(state.accounts)){a.papers??=[];a.drafts??={};a.answers??={};for(const rows of Object.values(a.answers)){for(const q of rows){q.bookmarked??=false;q.annotation??='';q.sources??=[];q.reviewed=q.reviewed===true;q.reviewedAt=q.reviewed&&typeof q.reviewedAt==='string'?q.reviewedAt:null;}}}}
+ else{const rawOld=localStorage.getItem('paperpilot.v1');if(rawOld){const old=JSON.parse(rawOld);if(old.version!==1||!Array.isArray(old.papers))throw Error('Invalid preview');state.preview=old.papers;}}
+ save();
+ }
+}catch(e){blocked=true;state={version:4,preview:[],accounts:{}};}
+session=sampleMode?null:(read(SESSION)||read(SESSION,sessionStorage));if(!session?.user?.id||!session.access_token)session=null;
+function remember(){try{if(session)localStorage.setItem(SESSION,JSON.stringify(session));else localStorage.removeItem(SESSION);sessionStorage.removeItem(SESSION);}catch(e){toast('Could not remember sign-in on this device.');}}
+function account(){if(!session)return null;return state.accounts[session.user.id]??={papers:[],drafts:{},answers:{},lastPaper:null};}
+function paper(){return account()?.papers.find(p=>p.paper_id===active);}
+function answers(){return account()?.answers[active]||[];}
+function status(p){return {ready:'Ready',processing:'Processing…',failed:'Processing failed'}[p?.status]||'Not ready';}
+function apiError(text,status){const e=new Error(text);e.status=status;return e;}
+async function api(path,opts={},auth=true,retry=true){
+ if(sampleMode)throw apiError('Sign in to use the private workspace.',403);
+ if(!navigator.onLine)throw apiError('You are offline. Your draft is kept. Try again when connected.',0);
+ const ac=new AbortController(),timer=setTimeout(()=>ac.abort(),path.endsWith('/ask')?180000:path==='/uploadfile/'?120000:30000);
+ try{
+ const headers=new Headers(opts.headers||{});if(auth){if(!session)throw apiError('Sign in to continue.',401);headers.set('Authorization','Bearer '+session.access_token);}
+ const r=await fetch(API+path,{...opts,headers,credentials:'omit',cache:'no-store',signal:ac.signal});
+ if(r.status===401&&auth&&retry){await refresh();return api(path,opts,true,false);}
+ if(opts.pdf&&r.ok)return r.blob();
+ let data;try{data=await r.json();}catch(e){throw apiError('PaperPilot returned an unreadable response. Please try again.',r.status);}
+ if(!r.ok)throw apiError(typeof data.detail==='string'?data.detail:r.status===422?'Check the information entered and try again.':'The request could not be completed. Please try again.',r.status);
+ return data;
+ }catch(e){if(e.name==='AbortError')throw apiError(path.endsWith('/ask')?'The answer request timed out. Your question is kept. Tap Ask to retry.':path==='/uploadfile/'?'The upload could not be confirmed in time. Check Library before uploading again.':'This request timed out. Please try again shortly.',0);if(e instanceof TypeError)throw apiError('Cannot reach PaperPilot right now. Please try again shortly.',0);throw e;}finally{clearTimeout(timer);}
+}
+function post(path,data,auth=true){return api(path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)},auth);}
+async function refresh(){
+ if(refreshing)return refreshing;const current=session,epoch=authEpoch;
+ refreshing=(async()=>{try{const data=await post('/auth/mobile/refresh',{refresh_token:current.refresh_token},false);if(epoch!==authEpoch)throw Error('Your account changed.');session=data;remember();}catch(e){if(e.status===401&&epoch===authEpoch){session=null;remember();renderAuth(false);}throw e;}finally{refreshing=null;}})();return refreshing;
+}
+function setPage(next){if(pdfUrl){URL.revokeObjectURL(pdfUrl);pdfUrl=null;}page=next;$('nav').classList.toggle('hidden',!(session||sampleMode));$('profile').classList.toggle('hidden',!(session||sampleMode));$('back').style.display=['upload','account','privacy','help','about','appearance','sample-info'].includes(next)?'grid':'none';$('composer-area').classList.add('hidden');document.querySelectorAll('[data-nav]').forEach(b=>b.classList.toggle('active',b.dataset.nav===(['sources','upload'].includes(next)?'discuss':next)));view.scrollTop=0;networkLabel();}
+function bind(){view.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>navigate(b.dataset.go));}
+function navigate(next){if(sampleMode)return sampleNavigate(next);if(!session)return renderAuth(false);if(next==='discuss'){mode='discuss';renderDiscuss();}else if(next==='library')renderLibrary();else if(next==='saved')renderSaved();else if(next==='account')renderAccount();else renderInfo(next);}
+function inline(id,text){if($(id))$(id).textContent=text;else toast(text);}
+function renderAuth(register=false,error=''){
+ setPage(register?'register':'signin');
+ view.innerHTML='<section class="auth"><h1>'+(register?'Create your account':'Welcome back')+'</h1><p class="muted">'+(register?'A place for your papers and discoveries.':'Continue your research.')+'</p><form class="form" id="auth-form"><label for="email">Email address</label><input id="email" type="email" autocomplete="email" placeholder="you@example.com" required maxlength="254"><button class="auth-primary wide" id="send-link">'+(register?'Create account with email':'Send sign-in link')+'</button><p id="auth-error" class="error" role="alert"></p><p class="auth-note">'+(register?'We will email a link to verify your address.':'No password needed.')+'</p></form><p class="auth-footer">'+(register?'Already have an account? ':'New here? ')+'<button class="text-btn" id="auth-switch">'+(register?'Sign in':'Create an account')+'</button></p><button class="text-btn small" id="privacy-auth">Privacy</button></section>';
+ const demo=document.createElement('div');demo.className='auth-actions';demo.style.marginTop='14px';demo.innerHTML='<button class="primary wide" id="try-sample">Try sample workspace</button><p class="small muted">Included paper excerpts. No sign-in needed.</p>';view.querySelector('.form').before(demo);$('try-sample').onclick=enterSample;
+ $('email').value=lastEmail;inline('auth-error',error);$('auth-switch').onclick=()=>{lastEmail=$('email').value;renderAuth(!register);};$('privacy-auth').onclick=()=>renderInfo('privacy');
+ $('auth-form').onsubmit=async e=>{e.preventDefault();if(!$('email').checkValidity())return;lastEmail=$('email').value.trim();lastRegister=register;const b=$('send-link');b.disabled=true;b.textContent='Sending…';try{const data=await post('/auth/mobile/request-link',{email:lastEmail,create_account:register},false);if(typeof data.login_request!=='string')throw Error('Sign-in needs an update. Please contact the app owner.');localStorage.setItem(LOGIN,JSON.stringify({ticket:data.login_request,email:lastEmail,createdAt:Date.now(),expiresAt:Date.now()+(data.expires_in||600)*1000}));resendAt=Date.now()+60000;renderCheckEmail();}catch(err){inline('auth-error',err.message);}finally{if(b.isConnected){b.disabled=false;b.textContent=register?'Create account with email':'Send sign-in link';}}};
+ if(read(CALLBACK,sessionStorage)){const retry=document.createElement('button');retry.className='wide';retry.textContent='Finish pending sign-in';retry.onclick=finishLogin;view.querySelector('.auth').prepend(retry);}
+}
+function renderCheckEmail(error=''){
+ setPage('check-email');view.innerHTML='<section class="auth">'+icons.mail+'<h1>Check your email</h1><p class="muted">Open the sign-in link sent to</p><p class="email-address">'+esc(lastEmail)+'</p><p class="muted">Open the link on this phone to continue.</p><div class="auth-actions"><button class="text-btn" id="change-email">Use a different email</button><button class="text-btn muted" id="resend">Resend link</button></div><p class="error" id="email-error" role="alert">'+esc(error)+'</p></section>';
+ $('change-email').onclick=()=>renderAuth(lastRegister);$('resend').onclick=async()=>{if(Date.now()<resendAt)return;renderAuth(lastRegister);$('send-link').focus();};updateResend();
+}
+function updateResend(){if(!$('resend'))return;const s=Math.max(0,Math.ceil((resendAt-Date.now())/1000));$('resend').disabled=s>0;$('resend').textContent=s?'Resend in '+s+'s':'Request another link';}
+async function finishLogin(){
+ if(sampleMode)return;
+ const url=new URL(location.href),params=new URLSearchParams(location.hash.slice(1)),code=url.searchParams.get('code'),legacyAccess=params.get('access_token'),legacyRefresh=params.get('refresh_token'),err=url.searchParams.get('error')||params.get('error');
+ if(code||legacyAccess){sessionStorage.setItem(CALLBACK,JSON.stringify({code,access:legacyAccess,refresh:legacyRefresh}));url.searchParams.delete('code');url.searchParams.delete('error');url.searchParams.delete('error_description');url.hash='';history.replaceState(null,'',url.pathname+url.search);}
+ if(err){history.replaceState(null,'',url.pathname);renderAuth(false,'This link is invalid or expired. Request a new sign-in email.');return;}
+ const cb=read(CALLBACK,sessionStorage);if(!cb)return;
+ setPage('verifying');view.innerHTML='<section class="auth"><h1>Completing sign-in</h1><p class="muted">Opening your research journal…</p></section>';
+ try{
+ let data;if(cb.code){const login=read(LOGIN);if(!login?.ticket||login.expiresAt<Date.now())throw apiError('Open the email link in the same browser where you requested it, or request a fresh link here.',401);data=await post('/auth/mobile/exchange-code',{auth_code:cb.code,login_request:login.ticket},false);}
+ else{const user=await api('/auth/me',{headers:{Authorization:'Bearer '+cb.access}},false);if(!cb.refresh)throw apiError('This link is incomplete. Request a fresh link.',401);data={access_token:cb.access,refresh_token:cb.refresh,user};}
+ authEpoch++;session=data;remember();sessionStorage.removeItem(CALLBACK);localStorage.removeItem(LOGIN);active=account().lastPaper||null;save();renderDiscuss();syncPapers().catch(e=>toast(e.message));
+ }catch(e){if(e.status===401)sessionStorage.removeItem(CALLBACK);renderAuth(false,e.message);}
+}
+let statusSync=null,lastStatusError='',lastStatusCheck='';const questionErrors={};
+function questionKey(){return session?.user.id+':'+active;}
+function showStatusFeedback(){
+ const node=$('processing-feedback');if(!node)return;
+ node.className=lastStatusError?'error':'notice';
+ node.textContent=lastStatusError||processingText(paper())+(lastStatusCheck?' Last checked '+lastStatusCheck+'.':'');
+}
+function processingText(p){
+ const info=p?.processing;if(!info)return p?.status==='ready'?'Your paper is ready for questions.':'Your paper is still processing. The server has not reported completion yet.';
+ return info.message+(Number.isInteger(info.total_chunks)?' Completed '+info.completed_chunks+' of '+info.total_chunks+' chunks.':'');
+}
+async function syncPapers(){
+ if(sampleMode)return;
+ if(!session)return;if(statusSync)return statusSync;
+ const uid=session.user.id;
+ statusSync=(async()=>{try{
+ const data=await api('/papers/');if(session?.user.id!==uid)return;
+ if(!Array.isArray(data.papers))throw Error('Could not read the paper list.');
+ const previous=JSON.stringify(paper());account().papers=data.papers;
+ const current=paper();
+ if(current&&current.status!=='ready'){
+   try{current.processing=await api('/papers/'+encodeURIComponent(current.paper_id)+'/status');}
+   catch(e){if(e.status!==404)throw e;}
+   if(session?.user.id!==uid)return;
+ }
+ lastStatusError='';lastStatusCheck=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});save();
+ if(page==='library')renderPaperRows();
+ else if(['discuss','sources'].includes(page)&&previous!==JSON.stringify(paper())&&!busy)renderDiscuss();
+ showStatusFeedback();
+ }catch(e){lastStatusError='Status could not be updated. '+e.message+' The displayed paper status may be out of date.';showStatusFeedback();throw e;}
+ finally{statusSync=null;}})();
+ return statusSync;
+}
+async function checkPaperStatus(){
+ const button=$('check-processing');if(button){button.disabled=true;button.textContent='Checking…';}
+ try{await syncPapers();if(['discuss','sources'].includes(page)){renderDiscuss();view.scrollTo({top:0,behavior:'smooth'});toast(paper()?.status==='ready'?'Your paper is ready. You can ask a question now.':processingText(paper()));}}
+ catch(e){showStatusFeedback();view.scrollTo({top:0,behavior:'smooth'});toast(lastStatusError);}
+ finally{const b=$('check-processing');if(b){b.disabled=false;b.textContent='Check status';}}
+}
+
+function choosePaper(id){active=id;account().lastPaper=id;mode='discuss';sourceAnswer=null;save();renderDiscuss();}
+function strip(p){return '<div class="paper-strip">'+icons.file+'<div><div class="title">'+esc(p?.filename||'No paper selected')+'</div><div class="meta">'+(p?'PDF'+(p.page_count?' · '+esc(p.page_count)+' pages':''):'Upload a PDF to begin')+'</div></div>'+(p?'<span class="state">'+esc(status(p))+'</span>':'')+'</div>';}
+function renderDiscuss(){
+ if(sampleMode)return renderSampleDiscuss();
+ if(!session)return renderAuth(false);setPage(mode==='sources'?'sources':'discuss');
+ const p=paper();view.innerHTML=strip(p)+'<div class="subtabs"><button id="discuss-tab" class="'+(mode==='discuss'?'selected':'')+'">Discuss</button><button id="sources-tab" class="'+(mode==='sources'?'selected':'')+'">Sources</button></div><div id="discussion"></div>';
+ $('discuss-tab').onclick=()=>{mode='discuss';renderDiscuss();};$('sources-tab').onclick=()=>{mode='sources';renderDiscuss();};
+ $('composer-area').classList.remove('hidden');$('question').value=account().drafts[active]||'';$('question').disabled=!p||p.status!=='ready'||busy;$('question').placeholder=!p?'Select a paper to ask a question':p.status!=='ready'?'Preparing your paper…':'Ask about this paper…';$('ask').disabled=!p||p.status!=='ready'||busy;$('ask').textContent=busy?'Working…':'Ask';$('attach').disabled=busy;let qe=$('question-feedback');if(!qe){qe=document.createElement('p');qe.id='question-feedback';qe.setAttribute('role','status');qe.setAttribute('aria-live','polite');$('composer-area').appendChild(qe);}qe.className=questionErrors[questionKey()]?'error small':'small muted';qe.textContent=questionErrors[questionKey()]||(busy?'Looking up your paper and preparing an answer…':'');
+ if(!p){$('discussion').innerHTML='<div class="empty">'+icons.file+'<h2>Start with a paper</h2><p>Upload a research PDF, then ask your first question.</p><button class="primary" id="start-upload">Upload PDF</button></div>';$('start-upload').onclick=renderUpload;return;}
+ if(p.status!=='ready'){
+ $('discussion').innerHTML=p.status==='failed'?'<h2 class="process-title">We could not prepare this paper</h2><p class="muted">Your PDF is still in your library. Try processing it again or choose another file.</p><button class="primary wide" id="retry-process">Retry processing</button><button class="wide" id="another" style="margin-top:10px">Choose another PDF</button>':'<h2 class="process-title">Processing your paper</h2><div class="step">✓ Upload complete</div><div class="step current">Preparing your paper</div><div class="step muted">Ready for questions</div><p class="small muted" style="margin-top:18px">You can leave this screen. Processing continues on the server.</p>';
+ const check=document.createElement('button');check.className='wide';check.textContent='Check status';check.id='check-processing';check.onclick=checkPaperStatus;const feedback=document.createElement('p');feedback.id='processing-feedback';feedback.setAttribute('role','status');feedback.setAttribute('aria-live','polite');$('discussion').appendChild(feedback);$('discussion').appendChild(check);showStatusFeedback();
+ if($('retry-process'))$('retry-process').onclick=async()=>{const uid=session.user.id;try{await post('/papers/'+encodeURIComponent(p.paper_id)+'/retry',{});if(session?.user.id!==uid)return;p.status='processing';save();renderDiscuss();}catch(e){toast(e.message);}};
+ if($('another'))$('another').onclick=renderUpload;return;
+ }
+ if(mode==='sources'){renderSources();return;}
+ if(!answers().length){$('discussion').innerHTML='<div class="empty"><h2>A question worth exploring</h2><p>Your paper is ready. Ask about its objective, methods or findings.</p></div>';return;}
+ answers().forEach((q,index)=>{const article=document.createElement('article');article.className='answer';article.innerHTML='<div class="question-head"><span class="number">'+String(index+1).padStart(2,'0')+'</span><h3>'+esc(q.question)+'</h3></div><div class="eyebrow">FROM THE PAPER</div>';
+ const body=document.createElement('div');body.className='answer-body';body.textContent=bodyText(q.answer);article.appendChild(body);
+ const sources=getSources(q),chips=document.createElement('div');chips.className='citations';sources.forEach((s,i)=>{const b=document.createElement('button');b.textContent=(i+1)+' · '+s.section+' · p. '+s.page;b.onclick=()=>{sourceAnswer=q.id;mode='sources';renderDiscuss();};chips.appendChild(b);});article.appendChild(chips);
+ if(sources[0]?.text){const excerpt=document.createElement('section');excerpt.className='excerpt';const label=document.createElement('div');label.className='eyebrow';label.textContent='SOURCE EXCERPT';const quote=document.createElement('blockquote');const text=sources[0].text;quote.textContent=text.slice(0,360)+(text.length>360?'…':'');const inspect=document.createElement('button');inspect.className='text-btn';inspect.textContent='View source';inspect.onclick=()=>{sourceAnswer=q.id;mode='sources';renderDiscuss();};excerpt.append(label,quote,inspect);article.appendChild(excerpt);}
+ const tools=document.createElement('div');tools.className='toolbar';const bookmark=document.createElement('button');bookmark.textContent=q.bookmarked?'Saved · remove':'Save finding';bookmark.onclick=()=>{q.bookmarked=!q.bookmarked;save();bookmark.textContent=q.bookmarked?'Saved · remove':'Save finding';};tools.appendChild(bookmark);
+ const annotation=document.createElement('button');annotation.textContent='Annotate';annotation.onclick=()=>{noteWrap.classList.toggle('hidden');if(!noteWrap.classList.contains('hidden'))note.focus();};tools.appendChild(annotation);article.appendChild(tools);
+ const noteWrap=document.createElement('div');noteWrap.className='annotation-wrap'+(q.annotation?'':' hidden');const label=document.createElement('label');label.textContent='Your annotation';const note=document.createElement('textarea');note.className='annotation';note.value=q.annotation||'';note.maxLength=4000;note.setAttribute('aria-label','Annotation for '+q.question);note.oninput=()=>{q.annotation=note.value;save();};label.appendChild(note);noteWrap.appendChild(label);article.appendChild(noteWrap);$('discussion').appendChild(article);
+ });
+}
+function bodyText(answer){return String(answer).split('\n').filter(line=>!line.trim().startsWith('Section:')&&!line.trim().startsWith('Citation metadata match:')&&!line.trim().startsWith('Confidence Score:')).join('\n').trim();}
+function getSources(q){
+ if(Array.isArray(q.sources)&&q.sources.length)return q.sources.map(s=>({...s,page:String(s.page_start||'—')+(s.page_end&&s.page_end!==s.page_start?'-'+s.page_end:''),section:s.section||'Source'}));
+ const result=[];for(const line of String(q.answer).split('\n')){const m=line.trim().match(/^Section: (.+), Page: (.+)$/);if(m)result.push({section:m[1],page:m[2],page_start:parseInt(m[2],10)||null,text:''});}return result;
+}
+function renderSources(){
+ const q=answers().find(a=>a.id===sourceAnswer)||answers()[answers().length-1];if(!q){$('discussion').innerHTML='<div class="empty"><h2>Evidence starts with a question</h2><p>Ask about this paper to see the references returned with its answer.</p></div>';return;}
+ $('discussion').innerHTML='<h2>Evidence for this answer</h2><p class="small muted">'+esc(q.question)+'</p>';
+ const sources=getSources(q);if(!sources.length){$('discussion').innerHTML+='<p class="muted">No paper references were returned for this answer.</p>';return;}
+ sources.forEach((s,i)=>{const card=document.createElement('section');card.className='excerpt';card.innerHTML='<strong>'+esc((i+1)+' / '+s.section+' · p. '+s.page)+'</strong>';const quote=document.createElement('blockquote');quote.textContent=s.text||'A source excerpt is not available for this earlier answer. Verify the reference in the original PDF.';card.appendChild(quote);if(s.page_start){const b=document.createElement('button');b.className='text-btn';b.textContent='Open PDF at page '+s.page_start;b.onclick=()=>openPdf(s.page_start,card);card.appendChild(b);}$('discussion').appendChild(card);});
+}
+async function openPdf(pageNumber,container){
+ const p=paper(),uid=session?.user.id;if(!p||!uid)return;try{toast('Preparing your PDF…');const blob=await api('/papers/'+encodeURIComponent(p.paper_id)+'/pdf',{pdf:true});if(session?.user.id!==uid||!container.isConnected)return;if(pdfUrl)URL.revokeObjectURL(pdfUrl);pdfUrl=URL.createObjectURL(blob);const old=container.querySelector('.pdf-open');if(old)old.remove();const a=document.createElement('a');a.className='pdf-open';a.href=pdfUrl+'#page='+pageNumber;a.target='_blank';a.rel='noopener';a.textContent='View PDF · page '+pageNumber;container.appendChild(a);const help=document.createElement('p');help.className='small muted';help.textContent='Your PDF viewer may open at page 1. Use its page controls if needed.';container.appendChild(help);}catch(e){toast(e.message);}
+}
+function renderLibrary(){
+ setPage('library');view.innerHTML='<div class="page-heading"><h1>Your library</h1><button class="primary" id="library-upload">Upload PDF</button></div><label class="sr-only" for="paper-search">Search papers</label><input id="paper-search" type="search" placeholder="Search papers"><div class="filters">'+['all','ready','processing','failed'].map(f=>'<button data-filter="'+f+'" class="'+(filter===f?'selected':'')+'">'+(f[0].toUpperCase()+f.slice(1))+'</button>').join('')+'</div><div id="paper-list"></div><button class="text-btn small" id="refresh-papers">Refresh papers</button><p class="inline-status" id="library-status"></p>';
+ $('paper-search').value=query;$('paper-search').oninput=e=>{query=e.target.value;renderPaperRows();};$('library-upload').onclick=renderUpload;$('refresh-papers').onclick=()=>syncPapers().catch(e=>inline('library-status',e.message));view.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;renderLibrary();});renderPaperRows();
+}
+function renderPaperRows(){
+ if(!$('paper-list'))return;const list=account().papers.filter(p=>(filter==='all'||p.status===filter)&&String(p.filename).toLowerCase().includes(query.toLowerCase()));$('paper-list').replaceChildren();
+ if(!list.length){$('paper-list').innerHTML='<div class="empty">'+icons.file+'<h2>'+(query||filter!=='all'?'No matching papers':'Your library starts here')+'</h2><p>'+(query||filter!=='all'?'Try another search or filter.':'Upload a research PDF to begin.')+'</p></div>';return;}
+ list.forEach(p=>{const b=document.createElement('button');b.className='paper-row';b.innerHTML=icons.file+'<span><strong>'+esc(p.filename)+'</strong><small>'+esc(status(p))+'</small></span><span class="spacer"></span><span aria-hidden="true">›</span>';b.onclick=()=>choosePaper(p.paper_id);$('paper-list').appendChild(b);});
+}
+let reviewFilter='all';
+function savedFindings(){
+ const rows=[];for(const [paperId,answers] of Object.entries(account().answers)){for(const answer of answers){if(answer.bookmarked)rows.push({paperId,answer});}}return rows;
+}
+function renderSaved(){
+ setPage('saved');view.innerHTML='<div class="page-heading"><h1>Saved findings</h1><button class="text-btn small" id="export-findings">Export</button></div><label class="sr-only" for="saved-search">Search saved answers</label><input id="saved-search" type="search" placeholder="Search saved answers"><div class="filters" aria-label="Review filters">'+[['all','All saved'],['pending','To review'],['reviewed','Reviewed']].map(([id,label])=>'<button data-review-filter="'+id+'" class="'+(reviewFilter===id?'selected':'')+'">'+label+'</button>').join('')+'</div><p id="review-summary" class="small muted" aria-live="polite"></p><div id="saved-list"></div>';
+ $('saved-search').oninput=renderSavedRows;$('export-findings').onclick=exportFindings;
+ view.querySelectorAll('[data-review-filter]').forEach(b=>b.onclick=()=>{reviewFilter=b.dataset.reviewFilter;view.querySelectorAll('[data-review-filter]').forEach(item=>item.classList.toggle('selected',item===b));renderSavedRows();});renderSavedRows();
+}
+function renderSavedRows(){
+ const query=$('saved-search').value.toLowerCase(),all=savedFindings();
+ const items=all.filter(({answer:q})=>(reviewFilter==='all'||(reviewFilter==='reviewed'?q.reviewed:!q.reviewed))&&[q.question,q.answer,q.annotation].join(' ').toLowerCase().includes(query));
+ const pending=all.filter(({answer:q})=>!q.reviewed).length;$('review-summary').textContent=all.length?pending+' to review · '+(all.length-pending)+' reviewed':'';$('export-findings').disabled=!all.length;
+ $('saved-list').replaceChildren();if(!items.length){$('saved-list').innerHTML='<div class="empty"><h2>'+(query?'No matching findings':reviewFilter==='pending'?'Your review queue is clear':reviewFilter==='reviewed'?'No reviewed findings yet':'Keep what matters')+'</h2><p>'+(query?'Try a different search.':reviewFilter==='pending'?'Save another answer or view all saved findings.':reviewFilter==='reviewed'?'Mark a saved finding as reviewed after checking its source.':'Tap Save finding on an answer to collect it here.')+'</p></div>';return;}
+ items.forEach(({paperId:id,answer:q})=>{
+ const card=document.createElement('article');card.className='saved-item';const p=account().papers.find(p=>p.paper_id===id);
+ card.innerHTML='<div class="paper-name">'+esc(p?.filename||'Research paper')+'</div><h3>'+esc(q.question)+'</h3><p class="snippet">'+esc(bodyText(q.answer).slice(0,180))+'</p>'+(q.annotation?'<p class="note">'+esc(q.annotation)+'</p>':'')+'<p class="small muted">'+(q.reviewed?'Reviewed'+(q.reviewedAt?' · '+esc(new Date(q.reviewedAt).toLocaleDateString()):''):'To review')+'</p>';
+ const tools=document.createElement('div');tools.className='toolbar';tools.style.flexWrap='wrap';
+ const reopen=document.createElement('button');reopen.textContent='Open discussion';reopen.onclick=()=>choosePaper(id);
+ const review=document.createElement('button');review.textContent=q.reviewed?'Mark to review':'Mark reviewed';review.onclick=()=>{const before={reviewed:q.reviewed,reviewedAt:q.reviewedAt};q.reviewed=!q.reviewed;q.reviewedAt=q.reviewed?new Date().toISOString():null;if(!save()){Object.assign(q,before);return;}renderSavedRows();toast(q.reviewed?'Marked reviewed. Your answer and sources are kept.':'Moved back to your review queue.');};
+ const remove=document.createElement('button');remove.textContent='Remove saved';remove.onclick=()=>{q.bookmarked=false;save();renderSavedRows();toast('Removed from Saved. The original answer is kept.');};
+ tools.append(reopen,review,remove);card.appendChild(tools);$('saved-list').appendChild(card);
+ });
+}
+function exportFindings(){
+ const rows=savedFindings();if(!rows.length)return;
+ const content={app:'PaperPilot',formatVersion:1,exportedAt:new Date().toISOString(),findings:rows.map(({paperId,answer:q})=>({id:q.id,paper:account().papers.find(p=>p.paper_id===paperId)?.filename||'Research paper',question:q.question,answer:q.answer,sources:getSources(q),annotation:q.annotation||'',reviewed:q.reviewed===true,reviewedAt:q.reviewedAt||null,createdAt:q.createdAt}))};
+ const url=URL.createObjectURL(new Blob([JSON.stringify(content,null,2)],{type:'application/json'}));const link=document.createElement('a');link.href=url;link.download='PaperPilot-findings-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);toast('Export prepared on this device. It contains your saved findings, not your sign-in credentials.');
+}
+
+function renderUpload(){
+ if(!session)return renderAuth();setPage('upload');view.innerHTML='<h1>Add a research paper</h1><div class="upload-box">'+icons.file+'<button class="primary" id="choose-file">Choose PDF</button><p class="small">Text-based PDF · Up to 50 MB</p></div><div id="selected-file"></div><p class="small muted" style="text-align:center">Your file will be uploaded to PaperPilot for processing.</p><button class="primary wide" id="upload-now" disabled>Upload paper</button><p class="error" id="upload-error" role="alert"></p>';$('choose-file').onclick=()=>$('pdf').click();$('upload-now').onclick=doUpload;showChosen();
+}
+function showChosen(){if(!$('selected-file'))return;$('selected-file').innerHTML=chosen?'<div class="paper-strip">'+icons.file+'<div><div class="title">'+esc(chosen.name)+'</div><div class="meta">'+(chosen.size/1024/1024).toFixed(2)+' MB</div></div><button class="icon" id="remove-file" aria-label="Remove selected PDF">×</button></div>':'';$('upload-now').disabled=!chosen||busy;if($('remove-file'))$('remove-file').onclick=()=>{chosen=null;showChosen();};}
+async function doUpload(){
+ if(sampleMode)return leaveSample();
+ if(!chosen||busy)return;const file=chosen,uid=session.user.id;busy=true;$('upload-now').disabled=true;$('upload-now').textContent='Uploading…';
+ try{const form=new FormData();form.append('file',file);const data=await api('/uploadfile/',{method:'POST',body:form});if(session?.user.id!==uid)return;if(!data.paper_id)throw Error('Could not confirm upload. Check your library before retrying.');account().papers.unshift({paper_id:data.paper_id,filename:data.filename,status:data.status||'processing',created_at:new Date().toISOString()});chosen=null;busy=false;save();choosePaper(data.paper_id);toast('Upload complete. Your paper is being prepared.');}
+ catch(e){inline('upload-error',e.message);}finally{busy=false;if($('upload-now')){$('upload-now').disabled=!chosen;$('upload-now').textContent='Upload paper';}}
+}
+async function ask(){
+ if(sampleMode)return;
+ const p=paper(),question=$('question').value.trim();if(!p||p.status!=='ready'||busy||!question){if(!question)toast('Write a question first.');return;}const uid=session.user.id,id=p.paper_id,a=account();a.drafts[id]=question;save();delete questionErrors[uid+':'+id];busy=true;renderDiscuss();
+ try{const data=await post('/papers/'+encodeURIComponent(id)+'/ask',{question});if(session?.user.id!==uid)return;if(typeof data.answer!=='string')throw Error('No answer was returned. Your question is kept.');(a.answers[id]??=[]).push({id:crypto.randomUUID(),question,answer:data.answer,sources:Array.isArray(data.sources)?data.sources:[],createdAt:new Date().toISOString(),bookmarked:false,annotation:'',reviewed:false,reviewedAt:null});a.drafts[id]='';save();toast('Answer saved on this phone.');}
+ catch(e){questionErrors[uid+':'+id]=e.message;toast(e.message);}finally{busy=false;if(session?.user.id===uid&&['discuss','sources'].includes(page))renderDiscuss();}
+}
+function renderAccount(){
+ setPage('account');view.innerHTML='<h1>Account</h1><div class="profile"><div class="avatar"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 22v-3a8 8 0 0 1 16 0v3"/></svg></div><h2>Your account</h2><p class="small">'+esc(session.user.email)+'</p></div><div class="settings">'+[['appearance','Appearance'],['privacy','Privacy & data'],['help','Help'],['about','About PaperPilot']].map(([id,label])=>'<button class="setting" data-go="'+id+'"><span>'+label+'</span><span>›</span></button>').join('')+'</div><button class="wide" id="signout">Sign out</button>';
+ $('signout').onclick=()=>{authEpoch++;session=null;remember();active=null;chosen=null;renderAuth(false);toast('Signed out on this phone. Saved research is kept for your account.');};bind();
+}
+function renderInfo(kind){
+ setPage(kind);
+ if(kind==='appearance'){view.innerHTML='<h1>Appearance</h1><p class="muted">Choose how your research journal looks.</p><label for="theme">Theme</label><select id="theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select>';$('theme').value=localStorage.getItem('paperpilot.theme')||'system';$('theme').onchange=e=>{localStorage.setItem('paperpilot.theme',e.target.value);applyTheme();};return;}
+ const copy={privacy:['Privacy & data','Your PDFs are uploaded to your PaperPilot account for processing. Questions and relevant paper text are sent to the configured AI providers.','Saved answers, review status, annotations and drafts remain on this device. Exports download locally and contain no sign-in credentials. Sign out before sharing the device. Signing out does not delete your research.','Sign-in is remembered in this browser until you sign out or your session expires.'],help:['Help','Upload a text-based PDF smaller than 50 MB. Wait for Ready before asking a question.','If a question fails, its draft is kept. If an upload times out, check Library before trying again.','This test service needs its host computer and processing worker online. Contact the app owner if it is unavailable.'],about:['About PaperPilot','Ask from the paper. Verify from the source.','A research journal for paper-grounded questions, page references and saved findings.','Source references help you verify an answer; they are not a guarantee that every claim is correct.']}[kind]||['PaperPilot'];
+ view.innerHTML='<h1>'+copy[0]+'</h1>'+copy.slice(1).map(p=>'<p class="muted">'+esc(p)+'</p>').join('');
+ if(kind==='privacy'&&state.preview.length){const d=document.createElement('details');d.className='archive';const s=document.createElement('summary');s.textContent='Preserved preview questions';d.appendChild(s);state.preview.forEach(p=>{const text=document.createElement('p');text.textContent=p.name+'\n'+[p.draft,...(p.questions||[]).map(q=>q.text)].filter(Boolean).join('\n');d.appendChild(text);});view.appendChild(d);}
+ if(kind==='help'){const b=document.createElement('button');b.textContent='Check service availability';b.onclick=async()=>{try{await api('/health',{},false);toast('PaperPilot is reachable.');}catch(e){toast(e.message);}};view.appendChild(b);}
+}
+function applyTheme(){const theme=localStorage.getItem('paperpilot.theme')||'system';if(theme==='system')document.documentElement.removeAttribute('data-theme');else document.documentElement.dataset.theme=theme;}
+function networkLabel(){$('offline').classList.toggle('hidden',navigator.onLine||!(session||sampleMode));}
+const SAMPLE_KEY='paperpilot.sample.v1';
+const SAMPLE_PAPER={title:'Defining Computer Science',author:'James W. McGuffee',publication:'SIGCSE Bulletin, June 2000',pageCount:3};
+const SAMPLE_QUESTIONS=[
+ {id:'objective',question:'What is the main objective of this paper?',answer:'The paper explores how undergraduate students define computer science, examining the purpose of definitions and how they can inform computer science education. [1]',sources:[{label:'[1]',section:'Abstract',page_start:1,page_end:1,text:'This paper explores the use and purpose of a definition of computer science from the perspective of an undergraduate student. In order to gain access to the topic, the nature and purpose of definitions are explored. Historical examples of computer science definitions are given. The paper concludes with an examination of how students define computer science and how we should use these definitions in computer science education.'}]},
+ {id:'definitions',question:'What does the paper say a definition should do?',answer:'A definition should distinguish what belongs to a concept from what does not. The paper describes a tension between narrow definitions, which can exclude legitimate cases, and broad definitions, which can include marginal cases. [1]',sources:[{label:'[1]',section:'2. Definitions',page_start:1,page_end:1,text:'The first thing to remember when developing a definition is that definitions are a human invention. A definition is an arbitrary process that serves to include some cases and to exclude other cases [4]. In other words, a definition must not simply tell us what something is, it must also tell us what it is not.'}]},
+ {id:'unsupported',question:'What medical treatment does this paper recommend?',answer:"I couldn't find the answer to your question in the provided paper.",sources:[]}
+];
+let sampleData=null,sampleStorageBlocked=false,sampleQuestion='objective',sampleSection='discuss',sampleReviewFilter='all';
+function sampleRecord(id){return sampleData.entries[id];}
+function loadSample(){
+ if(sampleData)return;
+ const fresh={version:1,entries:Object.fromEntries(SAMPLE_QUESTIONS.map(q=>[q.id,{bookmarked:false,annotation:'',reviewed:false,reviewedAt:null}]))};
+ try{const raw=localStorage.getItem(SAMPLE_KEY);if(raw){const old=JSON.parse(raw);if(old.version!==1||!old.entries||typeof old.entries!=='object')throw Error('Invalid sample storage');for(const q of SAMPLE_QUESTIONS){const value=old.entries[q.id]||{};fresh.entries[q.id]={bookmarked:value.bookmarked===true,annotation:typeof value.annotation==='string'?value.annotation.slice(0,2000):'',reviewed:value.reviewed===true,reviewedAt:value.reviewed&&typeof value.reviewedAt==='string'?value.reviewedAt:null};}}}catch(e){sampleStorageBlocked=true;}
+ sampleData=fresh;
+}
+function persistSample(){
+ if(sampleStorageBlocked){toast('Sample notes could not be read. The original saved value has been kept.');return false;}
+ try{localStorage.setItem(SAMPLE_KEY,JSON.stringify(sampleData));return true;}catch(e){toast('Could not save these sample changes. Your private research is unchanged.');return false;}
+}
+function changeSample(id,updates){const before={...sampleRecord(id)};Object.assign(sampleRecord(id),updates);if(!persistSample()){sampleData.entries[id]=before;return false;}return true;}
+function enterSample(){
+ sampleMode=true;loadSample();chosen=null;busy=false;const url=new URL(location.href);url.searchParams.set('sample','1');url.searchParams.delete('code');history.replaceState(null,'',url.pathname+url.search);$('question').value='';$('profile').setAttribute('aria-label','Sample workspace');renderSampleDiscuss();
+}
+function leaveSample(){const url=new URL(location.href);url.searchParams.delete('sample');location.assign(url.pathname+url.search);}
+function sampleNotice(){return '<div class="notice small" role="note"><strong>Sample workspace</strong><br>Prepared example answers with included source excerpts. No live AI or account required.</div>';}
+function sampleStrip(){return '<div class="paper-strip">'+icons.file+'<div><div class="title">'+esc(SAMPLE_PAPER.title)+'</div><div class="meta">Included excerpts · '+esc(SAMPLE_PAPER.author)+'</div></div><span class="state">Sample</span></div>';}
+function sampleNavigate(next){if(next==='library')renderSampleLibrary();else if(next==='saved')renderSampleSaved();else if(next==='account')renderSampleInfo();else{sampleSection='discuss';renderSampleDiscuss();}}
+function renderSampleDiscuss(){
+ loadSample();setPage(sampleSection==='sources'?'sources':'discuss');
+ const q=SAMPLE_QUESTIONS.find(item=>item.id===sampleQuestion)||SAMPLE_QUESTIONS[0],record=sampleRecord(q.id);
+ view.innerHTML=sampleStrip()+sampleNotice()+'<div class="subtabs"><button id="sample-discuss" class="'+(sampleSection==='discuss'?'selected':'')+'">Discuss</button><button id="sample-sources" class="'+(sampleSection==='sources'?'selected':'')+'">Sources</button></div><div id="sample-content"></div>';
+ $('sample-discuss').onclick=()=>{sampleSection='discuss';renderSampleDiscuss();};$('sample-sources').onclick=()=>{sampleSection='sources';renderSampleDiscuss();};
+ const content=$('sample-content');
+ if(sampleSection==='sources'){
+  const heading=document.createElement('h2');heading.textContent='Included source evidence';content.appendChild(heading);
+  const question=document.createElement('p');question.className='small muted';question.textContent=q.question;content.appendChild(question);
+  if(!q.sources.length){const p=document.createElement('p');p.textContent='No supporting paper reference is included for this unsupported question.';content.appendChild(p);}
+  for(const s of q.sources){const section=document.createElement('section');section.className='excerpt';const label=document.createElement('strong');label.textContent=s.section+' · PDF page '+s.page_start;const quote=document.createElement('blockquote');quote.textContent=s.text;section.append(label,quote);content.appendChild(section);}
+  const source=document.createElement('p');source.className='small muted';source.textContent=SAMPLE_PAPER.title+' — '+SAMPLE_PAPER.author+'. '+SAMPLE_PAPER.publication+'. This sample includes selected excerpts, not the full PDF.';content.appendChild(source);
+ }else{
+  const label=document.createElement('p');label.className='eyebrow';label.textContent='CHOOSE AN INCLUDED QUESTION';content.appendChild(label);
+  const choices=document.createElement('div');choices.style.cssText='display:grid;gap:8px;margin-bottom:20px';
+  for(const question of SAMPLE_QUESTIONS){const b=document.createElement('button');b.textContent=question.question;b.style.textAlign='left';b.setAttribute('aria-pressed',String(q.id===question.id));b.onclick=()=>{sampleQuestion=question.id;renderSampleDiscuss();};choices.appendChild(b);}content.appendChild(choices);
+  const article=document.createElement('article');article.className='answer';const h=document.createElement('h2');h.textContent=q.question;const eyebrow=document.createElement('p');eyebrow.className='eyebrow';eyebrow.textContent='PREPARED EXAMPLE ANSWER';const answer=document.createElement('div');answer.className='answer-body';answer.textContent=q.answer;article.append(h,eyebrow,answer);
+  const citations=document.createElement('div');citations.className='citations';for(const s of q.sources){const b=document.createElement('button');b.textContent=s.label+' · '+s.section+' · p. '+s.page_start;b.onclick=()=>{sampleSection='sources';renderSampleDiscuss();};citations.appendChild(b);}article.appendChild(citations);
+  const tools=document.createElement('div');tools.className='toolbar';tools.style.flexWrap='wrap';const saveButton=document.createElement('button');saveButton.textContent=record.bookmarked?'Saved · remove':'Save finding';saveButton.onclick=()=>{if(changeSample(q.id,{bookmarked:!record.bookmarked}))renderSampleDiscuss();};const annotate=document.createElement('button');annotate.textContent='Annotate';tools.append(saveButton,annotate);article.appendChild(tools);
+  const noteWrap=document.createElement('div');noteWrap.className='annotation-wrap'+(record.annotation?'':' hidden');const noteLabel=document.createElement('label');noteLabel.textContent='Your sample annotation';const note=document.createElement('textarea');note.value=record.annotation;note.maxLength=2000;note.setAttribute('aria-label','Sample annotation');note.oninput=()=>changeSample(q.id,{annotation:note.value});noteLabel.appendChild(note);noteWrap.appendChild(noteLabel);annotate.onclick=()=>{noteWrap.classList.toggle('hidden');if(!noteWrap.classList.contains('hidden'))note.focus();};article.appendChild(noteWrap);content.appendChild(article);
+ }
+ const own=document.createElement('button');own.className='text-btn';own.textContent='Use your own PDF — sign in';own.onclick=leaveSample;content.appendChild(own);
+}
+function renderSampleLibrary(){
+ loadSample();setPage('library');view.innerHTML='<h1>Your sample library</h1>'+sampleNotice()+'<button class="paper-row" id="sample-paper">'+icons.file+'<span><strong>'+esc(SAMPLE_PAPER.title)+'</strong><small>Included public-paper excerpts and three prepared questions</small></span></button><p class="small muted" style="margin-top:16px">Your private papers are separate from this sample workspace.</p><button class="wide" id="sample-private">Use your own PDF — sign in</button>';$('sample-paper').onclick=()=>{sampleSection='discuss';renderSampleDiscuss();};$('sample-private').onclick=leaveSample;
+}
+function renderSampleSaved(){
+ loadSample();setPage('saved');view.innerHTML='<div class="page-heading"><h1>Saved findings</h1><button class="text-btn small" id="sample-export">Export</button></div>'+sampleNotice()+'<label class="sr-only" for="sample-search">Search saved answers</label><input id="sample-search" type="search" placeholder="Search saved answers"><div class="filters">'+[['all','All saved'],['pending','To review'],['reviewed','Reviewed']].map(([id,label])=>'<button data-sample-filter="'+id+'" class="'+(sampleReviewFilter===id?'selected':'')+'">'+label+'</button>').join('')+'</div><p class="small muted" id="sample-summary" aria-live="polite"></p><div id="sample-saved-list"></div>';
+ $('sample-search').oninput=renderSampleSavedRows;$('sample-export').onclick=exportSample;view.querySelectorAll('[data-sample-filter]').forEach(b=>b.onclick=()=>{sampleReviewFilter=b.dataset.sampleFilter;view.querySelectorAll('[data-sample-filter]').forEach(item=>item.classList.toggle('selected',item===b));renderSampleSavedRows();});renderSampleSavedRows();
+}
+function renderSampleSavedRows(){
+ const all=SAMPLE_QUESTIONS.filter(q=>sampleRecord(q.id).bookmarked),query=$('sample-search').value.toLowerCase();const selected=all.filter(q=>{const r=sampleRecord(q.id);return (sampleReviewFilter==='all'||(sampleReviewFilter==='reviewed'?r.reviewed:!r.reviewed))&&[q.question,q.answer,r.annotation].join(' ').toLowerCase().includes(query);});
+ const reviewed=all.filter(q=>sampleRecord(q.id).reviewed).length;$('sample-summary').textContent=all.length?(all.length-reviewed)+' to review · '+reviewed+' reviewed':'';$('sample-export').disabled=!all.length;$('sample-saved-list').replaceChildren();
+ if(!selected.length){const empty=document.createElement('div');empty.className='empty';empty.innerHTML='<h2>'+(all.length?'No matching findings':'Keep what matters')+'</h2><p>'+(all.length?'Try another search or review filter.':'Save a prepared example answer from Discuss to collect it here.')+'</p>';$('sample-saved-list').appendChild(empty);return;}
+ for(const q of selected){const r=sampleRecord(q.id),card=document.createElement('article');card.className='saved-item';card.innerHTML='<div class="paper-name">Sample · '+esc(SAMPLE_PAPER.title)+'</div><h3>'+esc(q.question)+'</h3><p class="snippet">'+esc(q.answer.slice(0,180))+'</p>'+(r.annotation?'<p class="note">'+esc(r.annotation)+'</p>':'')+'<p class="small muted">'+(r.reviewed?'Reviewed':'To review')+'</p>';const tools=document.createElement('div');tools.className='toolbar';tools.style.flexWrap='wrap';const reopen=document.createElement('button');reopen.textContent='Open discussion';reopen.onclick=()=>{sampleQuestion=q.id;sampleSection='discuss';renderSampleDiscuss();};const review=document.createElement('button');review.textContent=r.reviewed?'Mark to review':'Mark reviewed';review.onclick=()=>{if(changeSample(q.id,{reviewed:!r.reviewed,reviewedAt:!r.reviewed?new Date().toISOString():null}))renderSampleSavedRows();};const remove=document.createElement('button');remove.textContent='Remove saved';remove.onclick=()=>{if(changeSample(q.id,{bookmarked:false}))renderSampleSavedRows();};tools.append(reopen,review,remove);card.appendChild(tools);$('sample-saved-list').appendChild(card);}
+}
+function exportSample(){
+ const findings=SAMPLE_QUESTIONS.filter(q=>sampleRecord(q.id).bookmarked).map(q=>({id:q.id,paper:SAMPLE_PAPER.title,question:q.question,answer:q.answer,sources:q.sources,...sampleRecord(q.id),answerType:'prepared_example'}));if(!findings.length)return;
+ const data={app:'PaperPilot',workspace:'sample',formatVersion:1,exportedAt:new Date().toISOString(),findings};const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='PaperPilot-sample-findings.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);toast('Sample findings exported locally. No account credentials are included.');
+}
+function renderSampleInfo(){
+ setPage('sample-info');view.innerHTML='<h1>Sample workspace</h1>'+sampleNotice()+'<p>Explore included questions, verify their excerpts, save a finding, add a note and mark it reviewed. Your sample notes stay in this browser.</p><p>Uploads and new live questions belong to the separate signed-in workspace. This sample does not process PDFs or generate new answers.</p><button class="primary wide" id="leave-sample">Open private workspace</button>';$('leave-sample').onclick=leaveSample;
+}
+
+$('pdf').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;try{if(!/\.pdf$/i.test(f.name)||f.size>50*1024*1024)throw Error('Choose a PDF smaller than 50 MB.');if(await f.slice(0,5).text()!=='%PDF-')throw Error('This file is not a valid PDF.');chosen=f;renderUpload();}catch(e){if(page==='upload')inline('upload-error',e.message);else toast(e.message);}};
+$('attach').onclick=renderUpload;$('ask').onclick=ask;$('question').oninput=e=>{if(account()&&active){account().drafts[active]=e.target.value;save();}e.target.style.height='auto';e.target.style.height=Math.min(120,e.target.scrollHeight)+'px';};
+$('profile').onclick=()=>sampleMode?renderSampleInfo():renderAccount();$('back').onclick=()=>sampleMode?renderSampleDiscuss():session?renderDiscuss():renderAuth(false);document.querySelectorAll('[data-nav]').forEach(b=>b.onclick=()=>navigate(b.dataset.nav));
+window.addEventListener('hashchange',finishLogin);window.addEventListener('popstate',finishLogin);window.addEventListener('online',()=>{networkLabel();if(session&&!sampleMode)syncPapers().catch(()=>{});});document.addEventListener('visibilitychange',()=>{if(!document.hidden&&session&&!sampleMode)syncPapers().catch(()=>{});});window.addEventListener('offline',networkLabel);
+window.addEventListener('storage',e=>{if(e.key===SESSION&&!sampleMode){const latest=read(SESSION);authEpoch++;session=latest?.user?.id?latest:null;if(session){active=account().lastPaper||null;renderDiscuss();syncPapers().catch(()=>{});}else renderAuth(false);}});
+setInterval(updateResend,1000);setInterval(()=>{if(session&&!sampleMode&&!document.hidden&&!busy&&account().papers.some(p=>p.status==='processing'))syncPapers().catch(()=>{});},10000);
+if(window.visualViewport){const fit=()=>{$('app').style.height=window.visualViewport.height+'px';};window.visualViewport.addEventListener('resize',fit);fit();}
+applyTheme();if(sampleMode){enterSample();}else if(session){active=account().lastPaper||null;renderDiscuss();}else renderAuth(false);finishLogin();
+if(session&&!sampleMode&&!location.search.includes('code='))syncPapers().catch(e=>toast(e.message));if(blocked)toast('Saved data could not be read. Original records were left untouched.');
+})();
+</script></body></html>

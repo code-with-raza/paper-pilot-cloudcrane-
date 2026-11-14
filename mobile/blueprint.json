@@ -1,0 +1,275 @@
+{
+  "v": 1,
+  "data": {
+    "keeps": [
+      {
+        "key": "paperpilot.v4",
+        "what": "Per-account papers, answers, source excerpts, bookmarks, annotations, drafts and review status/timestamps. Schema 3 and earlier records are copied without deleting originals.",
+        "personal": true
+      },
+      {
+        "key": "paperpilot.session",
+        "what": "Your sign-in session in this browser until you sign out or it expires.",
+        "personal": true
+      },
+      {
+        "key": "paperpilot.loginRequest",
+        "what": "Short-lived sign-in request used to complete your email link securely.",
+        "personal": true
+      },
+      {
+        "key": "paperpilot.theme",
+        "what": "System, light or dark appearance preference.",
+        "personal": false
+      },
+      {
+        "key": "paperpilot.v3",
+        "what": "Original saved research retained unchanged as a migration recovery copy.",
+        "personal": true
+      },
+      {
+        "key": "paperpilot.sample.v1",
+        "what": "Separate sample-only bookmarks, notes, review status and dates. Contains no private account session or research.",
+        "personal": true
+      }
+    ],
+    "version": 4
+  },
+  "icon": "book-open",
+  "design": {
+    "notes": "Approved Research Journal screens: parchment #F7F4EE, ink #20354B, copper #A65C36 and sage #E5EEE8; dark navy #14212E. Serif editorial headings, paper strip, numbered questions, citation tiles, rectangular composer and Discuss/Library/Saved navigation."
+  },
+  "network": [
+    {
+      "why": "Connect only the signed-in private workspace to the explicitly approved backend. The local sample workspace makes no backend requests.",
+      "site": "ages-chan-gathered-donations.trycloudflare.com",
+      "sends": "Email address, sign-in authorization code, login request/session tokens, PDFs, questions and paper identifiers."
+    }
+  ],
+  "purpose": "PaperPilot Research Journal: try an included sample without sign-in, inspect prepared answers and source excerpts, save/review/export findings locally, or sign in privately to upload PDFs and ask live questions.",
+  "screens": [
+    {
+      "id": "signin",
+      "says": "Clean sign-in and registration forms; no application navigation or developer details.",
+      "states": {
+        "empty": "Show the relevant next action, without sample answers or invented paper data.",
+        "error": "Show a readable recovery action and preserve existing research.",
+        "loading": "Show sending, verifying, uploading or server processing only while that operation is pending.",
+        "offline": "Keep cached research and drafts accessible; explain that new network operations need a connection."
+      }
+    },
+    {
+      "id": "email",
+      "says": "Email sent, change email, resend timer, callback verification and recoverable sign-in errors.",
+      "states": {
+        "empty": "Show the relevant next action, without sample answers or invented paper data.",
+        "error": "Show a readable recovery action and preserve existing research.",
+        "loading": "Show sending, verifying, uploading or server processing only while that operation is pending.",
+        "offline": "Keep cached research and drafts accessible; explain that new network operations need a connection."
+      }
+    },
+    {
+      "id": "discuss",
+      "says": "Default workspace: selected paper, Discuss/Sources tabs, numbered questions, cited answers and bottom composer.",
+      "states": {
+        "empty": "Show the relevant next action, without sample answers or invented paper data.",
+        "error": "Show a readable recovery action and preserve existing research.",
+        "loading": "Show sending, verifying, uploading or server processing only while that operation is pending.",
+        "offline": "Keep cached research and drafts accessible; explain that new network operations need a connection."
+      }
+    },
+    {
+      "id": "sources",
+      "says": "Display genuine retrieved excerpts and authenticated PDF links; explain viewer page-jump limitations.",
+      "states": {
+        "empty": "Show the relevant next action, without sample answers or invented paper data.",
+        "error": "Show a readable recovery action and preserve existing research.",
+        "loading": "Show sending, verifying, uploading or server processing only while that operation is pending.",
+        "offline": "Keep cached research and drafts accessible; explain that new network operations need a connection."
+      }
+    },
+    {
+      "id": "library",
+      "says": "Search and filter papers by processing status, select a paper or upload another PDF.",
+      "states": {
+        "empty": "Show the relevant next action, without sample answers or invented paper data.",
+        "error": "Show a readable recovery action and preserve existing research.",
+        "loading": "Show sending, verifying, uploading or server processing only while that operation is pending.",
+        "offline": "Keep cached research and drafts accessible; explain that new network operations need a connection."
+      }
+    },
+    {
+      "id": "saved",
+      "says": "Search saved findings; filter All saved, To review and Reviewed; mark review status and export saved findings locally without credentials.",
+      "states": {
+        "empty": "Show the relevant next action, without sample answers or invented paper data.",
+        "error": "Show a readable recovery action and preserve existing research.",
+        "loading": "Show sending, verifying, uploading or server processing only while that operation is pending.",
+        "offline": "Keep cached research and drafts accessible; explain that new network operations need a connection."
+      }
+    },
+    {
+      "id": "upload",
+      "says": "Select and validate a PDF, explicitly upload it, then show server processing and recovery actions.",
+      "states": {
+        "empty": "Show the relevant next action, without sample answers or invented paper data.",
+        "error": "Show a readable recovery action and preserve existing research.",
+        "loading": "Show sending, verifying, uploading or server processing only while that operation is pending.",
+        "offline": "Keep cached research and drafts accessible; explain that new network operations need a connection."
+      }
+    },
+    {
+      "id": "account",
+      "says": "Account profile, appearance, privacy, help and sign-out, accessed through the profile icon.",
+      "states": {
+        "empty": "Show the relevant next action, without sample answers or invented paper data.",
+        "error": "Show a readable recovery action and preserve existing research.",
+        "loading": "Show sending, verifying, uploading or server processing only while that operation is pending.",
+        "offline": "Keep cached research and drafts accessible; explain that new network operations need a connection."
+      }
+    },
+    {
+      "id": "sample",
+      "says": "A labelled, sign-in-free sample: included public-paper excerpts and prepared example answers; local save, annotation, review filters and JSON export; explicit exit to private sign-in.",
+      "states": {
+        "empty": "Explain how to save a sample finding without showing private research.",
+        "loading": "Prepared content opens locally; do not claim new AI generation.",
+        "offline": "Sample saving, review and export remain available locally after opening.",
+        "error": "Keep previous sample notes and private research unchanged if sample storage cannot be read or saved."
+      }
+    }
+  ],
+  "category": "learning",
+  "journeys": [
+    {
+      "id": "J-1",
+      "steps": [
+        {
+          "id": "J-1.1",
+          "text": "Request an email link and retain its per-request PKCE verifier on the server."
+        },
+        {
+          "id": "J-1.2",
+          "text": "Open the link in the same browser; exchange its code and share the session with other tabs."
+        },
+        {
+          "id": "J-1.3",
+          "text": "Land directly in Discuss and resume the last selected paper."
+        }
+      ],
+      "title": "Sign in and enter Discuss"
+    },
+    {
+      "id": "J-2",
+      "steps": [
+        {
+          "id": "J-2.1",
+          "text": "Choose a text PDF under 50 MB, inspect its selection and upload it."
+        },
+        {
+          "id": "J-2.2",
+          "text": "Check server processing progress, see readable failures or connection errors, and retry a failed processing job. Completion enables questions."
+        },
+        {
+          "id": "J-2.3",
+          "text": "Ask a question after the paper is ready; show pending work, retain the question on errors or timeouts, and retry with genuine citations."
+        }
+      ],
+      "title": "Upload and ask"
+    },
+    {
+      "id": "J-3",
+      "steps": [
+        {
+          "id": "J-3.1",
+          "text": "Inspect the answer's source excerpts and retrieve its PDF."
+        },
+        {
+          "id": "J-3.2",
+          "text": "Bookmark and annotate a finding, then find it under Saved."
+        },
+        {
+          "id": "J-3.3",
+          "text": "Search papers in Library and return to their discussion."
+        }
+      ],
+      "title": "Verify and save research"
+    },
+    {
+      "id": "J-4",
+      "steps": [
+        {
+          "id": "J-4.1",
+          "text": "Open Saved and filter findings awaiting review."
+        },
+        {
+          "id": "J-4.2",
+          "text": "Check a finding's source, mark it reviewed and retain its review date across reloads."
+        },
+        {
+          "id": "J-4.3",
+          "text": "Download a local JSON export containing findings, sources, annotations and review status without sign-in credentials."
+        }
+      ],
+      "title": "Review and export saved findings"
+    },
+    {
+      "id": "J-5",
+      "title": "Evaluate without sign-in",
+      "steps": [
+        {
+          "id": "J-5.1",
+          "text": "Choose Try sample workspace or open the sample link without an account."
+        },
+        {
+          "id": "J-5.2",
+          "text": "Select an included question, read its prepared answer and inspect genuine source excerpts."
+        },
+        {
+          "id": "J-5.3",
+          "text": "Save, annotate, mark reviewed, reload and export sample findings locally."
+        },
+        {
+          "id": "J-5.4",
+          "text": "Explicitly open the private workspace for authenticated uploads and live questions."
+        }
+      ]
+    }
+  ],
+  "promises": [
+    {
+      "id": "P-1",
+      "kind": "data",
+      "text": "Migrate version 2 research records without deleting original storage; retain prior questions, answers, citations and drafts."
+    },
+    {
+      "id": "P-2",
+      "text": "Live answers and excerpts come from the private backend. Sample answers are clearly labelled prepared examples with included source excerpts; no live AI generation is claimed for the sample."
+    },
+    {
+      "id": "P-3",
+      "text": "Question failures keep the draft; sign-out hides account research without deleting it."
+    },
+    {
+      "id": "P-4",
+      "text": "A failed status refresh is shown as stale status, never as a confirmed PDF-processing failure. Check status gives feedback even when the status has not changed."
+    },
+    {
+      "id": "P-5",
+      "text": "Question failures remain visible beside the retained draft. Upload and question timeouts have separate recovery instructions; new questions are deferred while search services warm up."
+    },
+    {
+      "id": "P-6",
+      "kind": "data",
+      "text": "Copy schema 3 records into schema 4, preserve existing answers, sources, bookmarks, annotations and drafts, and retain the original storage value."
+    },
+    {
+      "id": "P-7",
+      "text": "Review status and export work locally. Exports include only saved findings and never session tokens, account email or user identifier."
+    },
+    {
+      "id": "P-8",
+      "text": "The sample creates no authenticated session, makes no backend requests, and uses its own storage key. It cannot read or overwrite private account records or export account credentials."
+    }
+  ]
+}
