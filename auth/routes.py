@@ -96,7 +96,7 @@ def login(request: LoginRequest, response: Response):
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid email or password.",
+            detail="Could not sign in. Check your email and password, verify your email, or choose Create account if you are new.",
         )
 
     set_auth_cookies(response, user)

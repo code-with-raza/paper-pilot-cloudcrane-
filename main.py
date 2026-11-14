@@ -14,7 +14,7 @@ from fastapi import (
     UploadFile,
 )
 from fastapi.responses import Response
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from conversations.routes import router as conversations_router
 from api.upload import upload_paper, import_paper_from_url
@@ -40,6 +40,20 @@ async def lifespan(app: FastAPI):
 from browser_access import configure_cors
 
 app = FastAPI(lifespan=lifespan)
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
+
+
+@app.exception_handler(RequestValidationError)
+async def safe_validation_error(request, exc):
+    # Pydantic includes the submitted input in errors by default, including passwords.
+    return JSONResponse(status_code=422, content={"detail": [
+        {"loc": list(error["loc"]), "msg": error["msg"], "type": error["type"]}
+        for error in exc.errors()
+    ]})
+
+from api.request_limits import install_request_limits
+install_request_limits(app)
 configure_cors(app)
 
 app.include_router(auth_router)
@@ -64,7 +78,7 @@ def paper_processing_status(paper_id: str, current_user: dict = Depends(get_curr
 # Request models
 
 class QuestionRequest(BaseModel):
-    question: str
+    question: str = Field(min_length=1, max_length=4000)
 
 
 class PDFUrlRequest(BaseModel):
