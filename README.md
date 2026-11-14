@@ -25,7 +25,10 @@ Existing Supabase handles authentication, database jobs and private PDFs.
 6. Update the CloudCrane private-workspace API hostname AND its blueprint network
    allowlist together. The no-sign-in local sample remains independent of this API.
 
-`start_service.py` starts Chroma on loopback 8001, then one API and one worker.
+`start_service.py` starts Chroma on loopback 8001, then one API process. Ingestion
+runs in a background thread in that API process and shares its embedding model.
+Readiness requires both retrieval and the ingestion thread. Use one API process;
+do not configure extra Uvicorn workers. Process exits report cgroup memory events.
 `PORT` is supplied by Railway. Graphs and vector data are stored under `/data`.
 Only the API is exposed. The models are cached in the Docker image during build.
 No `.env`, private PDF, vector snapshot or graph data is committed here.

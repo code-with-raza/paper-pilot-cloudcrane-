@@ -6,6 +6,8 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir torch==2.15.0 --index-url https://download.pytorch.org/whl/cpu && pip install --no-cache-dir -r requirements.txt
 ENV HF_HOME=/opt/models
 RUN python -c "from sentence_transformers import SentenceTransformer,CrossEncoder; SentenceTransformer('all-MiniLM-L6-v2'); CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')"
+ENV TIKTOKEN_CACHE_DIR=/opt/tiktoken
+RUN python -c "import tiktoken; tiktoken.get_encoding('cl100k_base')"
 COPY api ./api
 COPY auth ./auth
 COPY conversations ./conversations

@@ -62,10 +62,13 @@ def main():
             if not dest.exists():dest.write_text(content,encoding='utf-8')
         marker.write_text('complete',encoding='ascii')
     launch('API',[sys.executable,'-u','-m','uvicorn','deploy_app:app','--host','0.0.0.0','--port',os.environ.get('PORT','8000'),'--timeout-graceful-shutdown','10'])
-    launch('worker',[sys.executable,'-u','worker.py'])
+    # deploy_app runs ingestion in the API process, sharing its cached model.
     while not stopping:
         for name,process in processes:
-            if process.poll() is not None:raise RuntimeError(name+' exited; restarting the deployment is required')
+            if process.poll() is not None:
+                memory_events=Path('/sys/fs/cgroup/memory.events')
+                diagnostics=memory_events.read_text() if memory_events.exists() else 'unavailable'
+                raise RuntimeError(f'{name} exited with code {process.returncode}; cgroup memory events: {diagnostics}')
         time.sleep(2)
 
 if __name__=='__main__':
